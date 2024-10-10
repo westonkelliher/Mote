@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://d4ke3iy4woo8"]
 
-[ext_resource type="Script" path="res://ramp.gd" id="1_yv0qh"]
+[ext_resource type="Script" path="res://props/ramp.gd" id="1_yv0qh"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_aicfy"]
 points = PackedVector3Array(-1, 0, -1, -1, 0, 1, 1, 0, -1, 1, 0, 1, -1, 1, -1, 1, 1, -1)

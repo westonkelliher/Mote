@@ -1,9 +1,18 @@
 extends Node3D
 
+#
 @export var MOUSE_SENSITIVITY := 0.0055
 @export var ROTATION_SPEED := 12.0
+#
+@export var STICK_CAM_LAT_SPEED := 5.0
+@export var STICK_CAM_PITCH_SPEED := 1.8
+# TODO: stick_cam_acc
+
+
+
 
 var ball: Node = null
+var target_cam_pitch := 0.0
 
 func _ready() -> void:
 	ball = $Ball
@@ -17,6 +26,7 @@ func _physics_process(delta: float) -> void:
 	global_position = ball.global_position
 	#
 	handle_move_input(delta)
+	handle_joystick_camera_move(delta)
 	stand_right_up(delta, 1.0)
 
 
@@ -37,11 +47,22 @@ func handle_move_input(delta: float) -> void:
 	var rotated_amount: float = $SpringArm.rotation.y - temp
 	basis = basis.rotated(basis * Vector3.UP, -rotated_amount)
 
+func handle_joystick_camera_move(delta: float) -> void:
+	var gpi := InputHandler.get_gamepad_input()
+	var stick := gpi.stick_R
+	$SpringArm.rotation.y -= stick.x * STICK_CAM_LAT_SPEED * delta
+	$SpringArm.rotation.x += stick.y * STICK_CAM_PITCH_SPEED * delta
+	$SpringArm.rotation_degrees.x = clamp($SpringArm.rotation_degrees.x, -90.0, 30.0)
+	#target_cam_pitch = clamp(stick.y * PI/2, -PI/4, PI/2.1)
+	#var pitch_amnt := STICK_CAM_PITCH_SPEED * delta
+	#$SpringArm.rotation.x  = move_toward($SpringArm.rotation.x, target_cam_pitch, pitch_amnt)
+	# TODO: use target rotation.x and lerp towards it
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
+		$SpringArm.rotation.y -= event.relative.x * MOUSE_SENSITIVITY
 		$SpringArm.rotation.x -= event.relative.y * MOUSE_SENSITIVITY
 		$SpringArm.rotation_degrees.x = clamp($SpringArm.rotation_degrees.x, -90.0, 30.0)
-		$SpringArm.rotation.y -= event.relative.x * MOUSE_SENSITIVITY
 
 
 func input_dir() -> Vector3:

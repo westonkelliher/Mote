@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://dqjeow7syoeqm"]
 
 [ext_resource type="Script" path="res://world.gd" id="1_4l1k1"]
-[ext_resource type="PackedScene" uid="uid://bjhygtqcx6cpa" path="res://planet.tscn" id="1_mbvnt"]
-[ext_resource type="PackedScene" uid="uid://cb8ap5h1604c7" path="res://character.tscn" id="2_7mdwe"]
-[ext_resource type="PackedScene" uid="uid://d4ke3iy4woo8" path="res://ramp.tscn" id="3_tqxpe"]
+[ext_resource type="PackedScene" uid="uid://bjhygtqcx6cpa" path="res://props/planet.tscn" id="1_mbvnt"]
+[ext_resource type="PackedScene" uid="uid://cb8ap5h1604c7" path="res://character/character.tscn" id="2_7mdwe"]
+[ext_resource type="PackedScene" uid="uid://d4ke3iy4woo8" path="res://props/ramp.tscn" id="3_tqxpe"]
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_4l1k1")
@@ -21,7 +21,7 @@ light_energy = 2.0
 omni_range = 20.0
 
 [node name="Character" parent="." instance=ExtResource("2_7mdwe")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.3439, -17.7511)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.89633, -5.26694)
 
 [node name="Ramp" parent="." instance=ExtResource("3_tqxpe")]
 transform = Transform3D(0.549878, 0.782764, -0.2914, -0.0610142, 0.385592, 0.92065, 0.833014, -0.488465, 0.259789, 8.30355, 1.58753, -5.2298)
