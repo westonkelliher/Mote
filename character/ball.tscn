@@ -18,6 +18,7 @@ gravity_scale = 0.0
 contact_monitor = true
 max_contacts_reported = 6
 script = ExtResource("1_w6bjn")
+COYOTE_TIME = 0.3
 
 [node name="Shape" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_vgunc")

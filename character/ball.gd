@@ -82,10 +82,12 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 			if frames_since_jump > 1:
 				has_hit_floor_since_jump = true
 			on_floor = true
-			$CoyoteTimer.start()
+			$Mesh.mesh.material = preload("res://materials/ball.tres")
+			$CoyoteTimer.start()#($CoyoteTimer.wait_time)
 	#
 	frames_since_jump += 1
 
 
 func _on_coyote_timer_timeout() -> void:
 	on_floor = false
+	$Mesh.mesh.material = preload("res://materials/ball_dud.tres")

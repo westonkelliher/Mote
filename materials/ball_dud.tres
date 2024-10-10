@@ -1,0 +1,15 @@
+[gd_resource type="StandardMaterial3D" load_steps=4 format=3 uid="uid://bvpf4mortf33v"]
+
+[sub_resource type="Gradient" id="Gradient_phpry"]
+colors = PackedColorArray(0.803922, 1, 1, 1, 0.235294, 0.8, 0.823529, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_c7e3l"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ouy31"]
+seamless = true
+color_ramp = SubResource("Gradient_phpry")
+noise = SubResource("FastNoiseLite_c7e3l")
+
+[resource]
+albedo_color = Color(4.33177e-06, 0.597364, 0.808766, 1)
+albedo_texture = SubResource("NoiseTexture2D_ouy31")
