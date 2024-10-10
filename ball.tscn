@@ -1,0 +1,38 @@
+[gd_scene load_steps=9 format=3 uid="uid://cd0l617b5aw87"]
+
+[ext_resource type="Script" path="res://ball.gd" id="1_w6bjn"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2xw0a"]
+bounce = 0.5
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_vgunc"]
+
+[sub_resource type="Gradient" id="Gradient_phpry"]
+colors = PackedColorArray(0.803922, 1, 1, 1, 0.235294, 0.8, 0.823529, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_c7e3l"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ouy31"]
+seamless = true
+color_ramp = SubResource("Gradient_phpry")
+noise = SubResource("FastNoiseLite_c7e3l")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ka2ke"]
+albedo_color = Color(0.509804, 0.831373, 1, 1)
+albedo_texture = SubResource("NoiseTexture2D_ouy31")
+
+[sub_resource type="SphereMesh" id="SphereMesh_g0grq"]
+material = SubResource("StandardMaterial3D_ka2ke")
+
+[node name="Ball" type="RigidBody3D"]
+physics_material_override = SubResource("PhysicsMaterial_2xw0a")
+gravity_scale = 0.0
+contact_monitor = true
+max_contacts_reported = 6
+script = ExtResource("1_w6bjn")
+
+[node name="Shape" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_vgunc")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_g0grq")

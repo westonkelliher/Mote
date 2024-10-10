@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cb8ap5h1604c7"]
+
+[ext_resource type="Script" path="res://character.gd" id="1_yeqd3"]
+[ext_resource type="PackedScene" uid="uid://cd0l617b5aw87" path="res://ball.tscn" id="2_kv56m"]
+
+[node name="Character" type="Node3D"]
+script = ExtResource("1_yeqd3")
+
+[node name="Ball" parent="." instance=ExtResource("2_kv56m")]
+
+[node name="SpringArm" type="SpringArm3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+spring_length = 2.0
+
+[node name="Camera3D" type="Camera3D" parent="SpringArm"]
