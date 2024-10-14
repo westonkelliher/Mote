@@ -1,12 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://cb8ap5h1604c7"]
+[gd_scene load_steps=4 format=3 uid="uid://cb8ap5h1604c7"]
 
 [ext_resource type="Script" path="res://character/character.gd" id="1_yeqd3"]
+[ext_resource type="PackedScene" uid="uid://2uexhwmihi1" path="res://guy.tscn" id="2_0o36k"]
 [ext_resource type="PackedScene" uid="uid://cd0l617b5aw87" path="res://character/ball.tscn" id="2_kv56m"]
 
 [node name="Character" type="Node3D"]
+rotation_order = 5
 script = ExtResource("1_yeqd3")
 
+[node name="Guy" parent="." instance=ExtResource("2_0o36k")]
+collision_layer = 0
+collision_mask = 0
+
 [node name="Ball" parent="." instance=ExtResource("2_kv56m")]
+collision_layer = 0
+collision_mask = 0
 
 [node name="SpringArm" type="SpringArm3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)

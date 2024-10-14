@@ -1,29 +1,63 @@
 extends Node3D
 
+
 #
 @export var MOUSE_SENSITIVITY := 0.0055
-@export var ROTATION_SPEED := 12.0
+@export var ROTATION_SPEED := 8.0
 #
 @export var STICK_CAM_LAT_SPEED := 5.0
 @export var STICK_CAM_PITCH_SPEED := 1.8
 # TODO: stick_cam_acc
 
-
-
+enum Form {BALL, GUY}
+var form := Form.GUY :
+	set(value):
+		form = value
+		if ball == null:
+			return
+		match form:
+			Form.GUY:
+				ball.visible = false
+				ball.collision_layer = 0
+				ball.collision_mask = 0
+				guy.visible = true
+				guy.collision_layer = 1
+				guy.collision_mask = 1
+			Form.BALL:
+				ball.visible = false
+				ball.collision_layer = 0
+				ball.collision_mask = 0
+				guy.visible = true
+				guy.collision_layer = 1
+				guy.collision_mask = 1
+	get:
+		return form
 
 var ball: Node = null
+var guy: Node = null
 var target_cam_pitch := 0.0
 
 func _ready() -> void:
-	ball = $Ball
 	var detach := Node.new()
 	add_child(detach)
+	#
+	ball = $Ball
 	remove_child(ball)
 	detach.add_child(ball)
 	ball.global_position = global_position
+	#
+	guy = $Guy
+	remove_child(guy)
+	detach.add_child(guy)
+	guy.global_position = global_position
+	#
+	form = form
 
 func _physics_process(delta: float) -> void:
-	global_position = ball.global_position
+	if form == Form.BALL:
+		global_position = ball.global_position
+	elif form == Form.GUY:
+		global_position = guy.global_position
 	#
 	handle_move_input(delta)
 	handle_joystick_camera_move(delta)
@@ -33,14 +67,21 @@ func _physics_process(delta: float) -> void:
 func handle_move_input(delta: float) -> void:
 	# jumping
 	if Input.is_action_just_pressed("jump"):
-		ball.handle_jump()
+		if form == Form.BALL:
+			ball.handle_jump()
+		elif form == Form.GUY:
+			guy.handle_jump()
 	# stick
 	var input_dir := input_dir()
-	if input_dir.length() == 0.0:
+	if input_dir.length() < 0.01: # dead zone
+		guy.handle_move_input(Vector3.ZERO)
 		return
 	#
 	var global_input_dir := global_basis * input_dir()
-	ball.handle_move_input(global_input_dir)
+	if form == Form.BALL:
+		ball.handle_move_input(global_input_dir)
+	elif form == Form.GUY:
+		guy.handle_move_input(global_input_dir)
 	#
 	var temp: float = $SpringArm.rotation.y
 	$SpringArm.rotation.y = lerp_angle($SpringArm.rotation.y, 0.0, ROTATION_SPEED * delta)

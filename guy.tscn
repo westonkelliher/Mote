@@ -1,0 +1,61 @@
+[gd_scene load_steps=8 format=3 uid="uid://2uexhwmihi1"]
+
+[ext_resource type="Script" path="res://guy.gd" id="1_a0hnf"]
+[ext_resource type="Material" uid="uid://c1rt6qhbqn4bw" path="res://materials/ball.tres" id="1_rpplv"]
+[ext_resource type="Material" uid="uid://bvpf4mortf33v" path="res://materials/ball_dud.tres" id="2_sj72v"]
+[ext_resource type="Texture2D" uid="uid://cy5n8pxmggrni" path="res://icon.svg" id="4_3nenl"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rymci"]
+height = 1.5
+
+[sub_resource type="SphereMesh" id="SphereMesh_uomap"]
+material = ExtResource("1_rpplv")
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_c6fma"]
+material = ExtResource("2_sj72v")
+radius = 0.12
+height = 1.0
+
+[node name="Guy" type="CharacterBody3D"]
+script = ExtResource("1_a0hnf")
+GROUND_ACC = 22.0
+
+[node name="Shape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+shape = SubResource("CapsuleShape3D_rymci")
+
+[node name="Body" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_uomap")
+
+[node name="Leg_L" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, -0.5, 0)
+mesh = SubResource("CapsuleMesh_c6fma")
+
+[node name="Leg_R" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, -0.5, 0)
+mesh = SubResource("CapsuleMesh_c6fma")
+
+[node name="Arm_L" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(0.833748, -0.481365, 0.270466, 0.5, 0.866025, 0, -0.23423, 0.135233, 0.96273, 0.5, -0.2, 0)
+mesh = SubResource("CapsuleMesh_c6fma")
+
+[node name="Arm_R" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(0.802783, 0.463487, -0.375124, -0.5, 0.866025, 0, 0.324867, 0.187562, 0.926974, -0.5, -0.2, 0)
+mesh = SubResource("CapsuleMesh_c6fma")
+
+[node name="CoyoteTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(0.196078, 0.215686, 0.2, 1)
+position = Vector2(131, 24)
+scale = Vector2(0.0605469, 0.226562)
+texture = ExtResource("4_3nenl")
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprite2D"]
+position = Vector2(0, -61.7931)
+texture = ExtResource("4_3nenl")
+centered = false
+
+[connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timer_timeout"]

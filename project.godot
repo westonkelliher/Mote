@@ -99,3 +99,7 @@ RT1={
 "deadzone": 0.5,
 "events": []
 }
+
+[physics]
+
+3d/physics_engine="JoltPhysics3D"

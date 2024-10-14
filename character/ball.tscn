@@ -13,6 +13,8 @@ bounce = 0.5
 material = ExtResource("2_l5gtt")
 
 [node name="Ball" type="RigidBody3D"]
+rotation_order = 5
+mass = 5.0
 physics_material_override = SubResource("PhysicsMaterial_2xw0a")
 gravity_scale = 0.0
 contact_monitor = true
@@ -24,6 +26,7 @@ COYOTE_TIME = 0.3
 shape = SubResource("SphereShape3D_vgunc")
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("SphereMesh_g0grq")
 
 [node name="CoyoteTimer" type="Timer" parent="."]
