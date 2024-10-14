@@ -25,3 +25,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.39653, 14.2861, 4.26235)
 
 [node name="Ramp" parent="." instance=ExtResource("3_tqxpe")]
 transform = Transform3D(0.549878, 0.782764, -0.2914, -0.0610142, 0.385592, 0.92065, 0.833014, -0.488465, 0.259789, 8.30355, 1.58753, -5.2298)
+
+[node name="Ramp2" parent="." instance=ExtResource("3_tqxpe")]
+transform = Transform3D(6.995, 0, 0, 0, 6.995, 0, 0, 0, 6.995, 1.5534, 10.2688, 2.73285)
